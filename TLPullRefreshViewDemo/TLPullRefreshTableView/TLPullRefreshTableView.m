@@ -18,7 +18,6 @@
 
 @property (assign, nonatomic) PullRefreshType prType;
 
-@property (assign, nonatomic) id<RefreshViewDelegate> refreshViewDelegate;
 
 @end
 
@@ -55,31 +54,61 @@ CGFloat kPRAnimationDuration = 0.2;
 
 }
 
-- (void)setPrType:(PullRefreshType)prType{
-    _prType = prType;
-    switch (prType) {
-        case PRTypeTopRefresh:{
-            UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-            backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-            [backgroundView addSubview:self.topRefreshView];
-            self.backgroundView= backgroundView;
-            break;
+//- (void)setPrType:(PullRefreshType)prType{
+//    _prType = prType;
+//    switch (prType) {
+//        case PRTypeTopRefresh:{
+//            UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+//            backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//            [backgroundView addSubview:self.topRefreshView];
+//            self.backgroundView= backgroundView;
+//            break;
+//        }
+//        case PRTypeTopRefreshBottomLoad:{
+//            //handle top refresh view
+//            UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+//            backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//            [backgroundView addSubview:self.topRefreshView];
+//            self.backgroundView= backgroundView;
+//            
+//            //handle bottom load more view
+//            [self addSubview:self.loadMoreView];
+//    
+//        }
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview{
+    if (newSuperview) {
+        switch (_prType) {
+            case PRTypeTopRefresh:{
+                UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+                backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+                [backgroundView addSubview:self.topRefreshView];
+                self.backgroundView= backgroundView;
+                break;
+            }
+            case PRTypeTopRefreshBottomLoad:{
+                //handle top refresh view
+                UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
+                backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+                [backgroundView addSubview:self.topRefreshView];
+                self.backgroundView= backgroundView;
+                
+                //handle bottom load more view
+                [self addSubview:self.loadMoreView];
+                
+            }
+                break;
+                
+            default:
+                break;
         }
-        case PRTypeTopRefreshBottomLoad:{
-            //handle top refresh view
-            UIView *backgroundView = [[UIView alloc] initWithFrame:self.bounds];
-            backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-            [backgroundView addSubview:self.topRefreshView];
-            self.backgroundView= backgroundView;
-            
-            //handle bottom load more view
-            [self addSubview:self.loadMoreView];
-    
-        }
-            break;
-            
-        default:
-            break;
+
     }
 }
 
@@ -101,10 +130,10 @@ CGFloat kPRAnimationDuration = 0.2;
 - (UIView *)loadMoreView{
     if (!_loadMoreView) {
         _loadMoreView = [[BaseLoadMoreView alloc] initWithFrame:CGRectMake(0, self.frame.size.height, self.frame.size.width, kPRLoadViewHeight)];
-        _loadMoreView.backgroundColor = [UIColor greenColor];
     }
     return _loadMoreView;
 }
+
 
 #pragma mark TableView State
 
@@ -135,7 +164,7 @@ CGFloat kPRAnimationDuration = 0.2;
         
         //1.topRefreshView appears totally
         
-        if (offset.y < - kPRRefreshViewHeight) {
+        if (offset.y <= - kPRRefreshViewHeight) {
             _topRefreshView.refreshState = PRStateReleaseToRefresh;
             _topRefreshView.progress = 1;
         }
@@ -195,9 +224,7 @@ CGFloat kPRAnimationDuration = 0.2;
     
     if (_topRefreshView.refreshState == PRStateRefreshing) {
         _topRefreshView.refreshState = PRStatePullToRefresh;
-//        _loadMoreView.loadState = LoadStateNormal;
-//        needDetectTopRefreshViewFrame = NO;
-        
+
         [UIView animateWithDuration:kPRAnimationDuration animations:^{
             self.contentInset = UIEdgeInsetsMake(orignContentInsetTop, 0, 0, 0);
         } completion:nil];
@@ -218,6 +245,7 @@ CGFloat kPRAnimationDuration = 0.2;
                 [self tableViewDidScroll];
             }
         }else{
+            //如果未达到刷新的offset,会自动回滚,也需要将progress传出
             [self tableViewDidScroll];
         }
         if (!self.isDragging && _topRefreshView.refreshState == PRStateReleaseToRefresh) {

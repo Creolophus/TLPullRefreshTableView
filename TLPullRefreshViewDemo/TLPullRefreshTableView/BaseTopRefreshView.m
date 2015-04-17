@@ -8,28 +8,39 @@
 
 #import "BaseTopRefreshView.h"
 
+
 NSString* kRotationAnimation = @"RotationAnimation";
 
 @interface BaseTopRefreshView ()
 @property (strong, nonatomic) CALayer *containerLayer;
 @property (strong, nonatomic) NSMutableArray *componetLayers;
 @property (assign, nonatomic) BOOL isRefreshingAnimation;
+
 @end
 
 @implementation BaseTopRefreshView
+
+- (instancetype)init
+{
+    self = [super initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
+    if (self) {
+        
+    }
+    return self;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        _componetLayers = [NSMutableArray array];
         [self setup];
     }
     return self;
 }
 
 - (void)setup {
+    _componetLayers = [NSMutableArray array];
     CGRect frame = self.frame;
     _containerLayer = [[CALayer alloc] init];
     _containerLayer.frame = CGRectMake(0, 0, 40, 40);
@@ -76,6 +87,9 @@ NSString* kRotationAnimation = @"RotationAnimation";
         return;
     }
     _refreshState = refreshState;
+    if ([NSStringFromClass([self class]) isEqual:@"BaseTopRefreshView"]) {
+        return;
+    }
     switch (refreshState) {
         case PRStatePullToRefresh:{
             [self stopAnimation];

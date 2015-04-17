@@ -20,4 +20,8 @@ typedef enum : NSUInteger {
 @property (assign, nonatomic) PRState refreshState;
 @property (assign, nonatomic) CGFloat progress;
 
+
+- (void)setup;
+
+
 @end

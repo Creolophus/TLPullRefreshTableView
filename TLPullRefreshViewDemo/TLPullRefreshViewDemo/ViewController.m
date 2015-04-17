@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "TLPullRefreshTableView.h"
+#import "CustomTopRefreshView.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) TLPullRefreshTableView *tableView;
@@ -31,7 +32,7 @@ struct Page page;
 
     
     _tableView = [[TLPullRefreshTableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain pullRefreshType:PRTypeTopRefreshBottomLoad];
-    
+    _tableView.topRefreshView = [[CustomTopRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.backgroundColor = [UIColor redColor];

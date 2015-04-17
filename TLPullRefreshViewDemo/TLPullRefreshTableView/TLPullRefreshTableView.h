@@ -37,7 +37,6 @@ typedef void(^LoadBlock)();
 
 @property (strong, nonatomic) BaseLoadMoreView *loadMoreView;
 
-
 @property (copy, nonatomic) RefreshBlock refreshBlock;
 
 @property (copy, nonatomic) LoadBlock loadBlock;
@@ -48,6 +47,10 @@ typedef void(^LoadBlock)();
  *  结束加载或刷新
  */
 - (void)finishLoading;
+
+- (BaseTopRefreshView *)topRefreshView;
+
+- (BaseLoadMoreView *)loadMoreView;
 
 
 @end
