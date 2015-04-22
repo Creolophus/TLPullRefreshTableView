@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>457CA45B-2658-4416-8A09-86E14A856139</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>TLPullRefreshViewDemo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>B66B09C0B229A17F2A2BF6C6E4B71D783DFBFD72</key>
 		<string>https://github.com/Creolophus/TLPullRefreshTableView.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TLPullRefreshViewDemo/TLPullRefreshViewDemo.xcodeproj/project.xcworkspace</string>
+	<string>TLPullRefreshViewDemo/TLPullRefreshViewDemo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B66B09C0B229A17F2A2BF6C6E4B71D783DFBFD72</key>

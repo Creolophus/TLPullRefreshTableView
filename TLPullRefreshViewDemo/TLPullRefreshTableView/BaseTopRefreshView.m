@@ -22,7 +22,7 @@ NSString* kRotationAnimation = @"RotationAnimation";
 
 - (instancetype)init
 {
-    self = [super initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
+    self = [self initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
     if (self) {
         
     }
@@ -31,7 +31,7 @@ NSString* kRotationAnimation = @"RotationAnimation";
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self setup];
@@ -88,26 +88,29 @@ NSString* kRotationAnimation = @"RotationAnimation";
     }
     _refreshState = refreshState;
     if ([NSStringFromClass([self class]) isEqual:@"BaseTopRefreshView"]) {
+        switch (refreshState) {
+            case PRStatePullToRefresh:{
+                [self stopAnimation];
+                break;
+            }
+                
+            case PRStateReleaseToRefresh:{
+                [self releaseToRefreshAnimation];
+                break;
+            }
+                
+            case PRStateRefreshing:{
+                [_containerLayer removeAnimationForKey:kRotationAnimation];
+                [self addOpacityAnimation];
+                break;
+            }
+            default:
+                break;
+
         return;
-    }
-    switch (refreshState) {
-        case PRStatePullToRefresh:{
-            [self stopAnimation];
-            break;
-        }
-            
-        case PRStateReleaseToRefresh:{
-            [self releaseToRefreshAnimation];
-            break;
+   
         }
         
-        case PRStateRefreshing:{
-            [_containerLayer removeAnimationForKey:kRotationAnimation];
-            [self addOpacityAnimation];
-            break;
-        }
-        default:
-            break;
     }
 }
 

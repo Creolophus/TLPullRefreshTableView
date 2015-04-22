@@ -32,7 +32,7 @@ struct Page page;
 
     
     _tableView = [[TLPullRefreshTableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain pullRefreshType:PRTypeTopRefreshBottomLoad];
-    _tableView.topRefreshView = [[CustomTopRefreshView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
+    _tableView.topRefreshView = [CustomTopRefreshView new];
     _tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.backgroundColor = [UIColor redColor];
@@ -50,7 +50,7 @@ struct Page page;
     _tableView.loadBlock = ^(void){
         [wkSelf loadData];
     };
-    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.translucent = NO;
     [self.view addSubview:_tableView];
     
     
@@ -97,7 +97,9 @@ struct Page page;
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellId"];
+        cell.backgroundColor = [UIColor yellowColor];
     }
+
     cell.textLabel.text = [NSString stringWithFormat:@"%@", _localArray[indexPath.row]];
 
     return cell;

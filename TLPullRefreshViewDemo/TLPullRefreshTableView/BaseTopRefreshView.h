@@ -21,7 +21,5 @@ typedef enum : NSUInteger {
 @property (assign, nonatomic) CGFloat progress;
 
 
-- (void)setup;
-
 
 @end

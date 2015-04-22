@@ -9,8 +9,8 @@
 #import "CustomTopRefreshView.h"
 
 @interface CustomTopRefreshView ()
-@property (strong, nonatomic) CALayer *redLayer;
-@property (strong, nonatomic) CALayer *blueLayer;
+
+@property (strong, nonatomic) CAShapeLayer *ovalShapeLayer;
 
 @end
 
@@ -18,53 +18,42 @@
 
 
 - (void)setup{
-    _redLayer = [[CALayer alloc] init];
-    _redLayer.backgroundColor = [UIColor redColor].CGColor;
-    _redLayer.frame = CGRectMake(0, 0, 30, 30);
-    _redLayer.anchorPoint = CGPointMake(-0.5, 0.5);
-    _redLayer.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
     
-    
-    _blueLayer = [[CALayer alloc] init];
-    _blueLayer.backgroundColor = [UIColor colorWithRed:0.110 green:0.494 blue:1.000 alpha:1.000].CGColor;
-    _blueLayer.frame = CGRectMake(0, 0, 30, 30);
-    _blueLayer.anchorPoint = CGPointMake(1.5, 0.5);
-    _blueLayer.position = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
-    
-    CATransform3D tran = CATransform3DIdentity;
-    tran.m34 = 1/300;
-    _redLayer.transform = tran;
-    tran.m34 = -1/300;
-    _blueLayer.transform = tran;
+    _ovalShapeLayer = [[CAShapeLayer alloc] init];
+//    _ovalShapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.frame.size.width/2 - 20, self.frame.size.height/2 - 20, 40, 40)].CGPath;
+    _ovalShapeLayer.strokeColor = [UIColor grayColor].CGColor;
+    _ovalShapeLayer.fillColor = [UIColor clearColor].CGColor;
+    _ovalShapeLayer.lineWidth = 2.0;
 
-    [self.layer addSublayer:_redLayer];
-    
-    [self.layer addSublayer:_blueLayer];
+//    _ovalShapeLayer.lineDashPattern = @[@(2), @(2)];
+    [self.layer addSublayer:_ovalShapeLayer];
     
 }
 
 - (void)setProgress:(CGFloat)progress{
-    _redLayer.cornerRadius = progress * _redLayer.bounds.size.width / 2;
-    _blueLayer.cornerRadius = progress * _blueLayer.bounds.size.width / 2;
+    _ovalShapeLayer.strokeEnd = progress;
+    _ovalShapeLayer.opacity = progress;
+    NSLog(@"%@", NSStringFromCGRect(_ovalShapeLayer.frame));
+    _ovalShapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.frame.size.width/2 - 20, self.frame.size.height/2 - 20 - (60 - progress*60), 40, 40)].CGPath;
+
+
 }
 
 - (void)setRefreshState:(PRState)refreshState{
     [super setRefreshState:refreshState];
     switch (refreshState) {
         case PRStatePullToRefresh:{
-            [_blueLayer removeAllAnimations];
-            [_redLayer removeAllAnimations];
+            _ovalShapeLayer.opacity = 0;
+            [_ovalShapeLayer removeAllAnimations];
             break;
         }
             
         case PRStateReleaseToRefresh:{
-
             break;
         }
             
         case PRStateRefreshing:{
-            [_blueLayer addAnimation:[self addRotateAnimation] forKey:nil];
-            [_redLayer addAnimation:[self addRotateAnimation] forKey:nil];
+            [_ovalShapeLayer addAnimation:[self addRotateAnimation] forKey:@"1"];
             break;
         }
         default:
@@ -74,14 +63,20 @@
 }
 
 
-- (CABasicAnimation *)addRotateAnimation{
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
-    animation.fromValue = @(0);
-    animation.toValue = @(360 * M_PI / 180);
-    animation.duration = 1;
-    animation.repeatCount = INFINITY;
-//    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    return animation;
+- (CAAnimation *)addRotateAnimation{
+    CABasicAnimation *a1 = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
+    a1.fromValue = @(-.5);
+    a1.toValue = @(1);
+    CABasicAnimation *a2 = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    a2.fromValue = @(0);
+    a2.toValue = @(1);
+    
+    CAAnimationGroup *group = [CAAnimationGroup new];
+    group.animations = @[a1, a2];
+    group.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    group.repeatCount = INFINITY;
+    group.duration = 1;
+    return group;
 }
 
 @end
