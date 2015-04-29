@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		36527B911AE0ECEA00AF5F24 /* CustomTopRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 36527B901AE0ECEA00AF5F24 /* CustomTopRefreshView.m */; };
+		363DEB381AF0B1BD00909D0D /* CustomTopRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 363DEB371AF0B1BD00909D0D /* CustomTopRefreshView.m */; };
 		36E3DB101ADF489C004245F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E3DB0F1ADF489C004245F9 /* main.m */; };
 		36E3DB131ADF489C004245F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E3DB121ADF489C004245F9 /* AppDelegate.m */; };
 		36E3DB161ADF489C004245F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36E3DB151ADF489C004245F9 /* ViewController.m */; };
@@ -31,8 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		36527B8F1AE0ECEA00AF5F24 /* CustomTopRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTopRefreshView.h; sourceTree = "<group>"; };
-		36527B901AE0ECEA00AF5F24 /* CustomTopRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTopRefreshView.m; sourceTree = "<group>"; };
+		363DEB361AF0B1BD00909D0D /* CustomTopRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTopRefreshView.h; sourceTree = "<group>"; };
+		363DEB371AF0B1BD00909D0D /* CustomTopRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTopRefreshView.m; sourceTree = "<group>"; };
 		36E3DB0A1ADF489C004245F9 /* TLPullRefreshViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TLPullRefreshViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36E3DB0E1ADF489C004245F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36E3DB0F1ADF489C004245F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -94,6 +94,8 @@
 		36E3DB0C1ADF489C004245F9 /* TLPullRefreshViewDemo */ = {
 			isa = PBXGroup;
 			children = (
+				363DEB361AF0B1BD00909D0D /* CustomTopRefreshView.h */,
+				363DEB371AF0B1BD00909D0D /* CustomTopRefreshView.m */,
 				36E3DB111ADF489C004245F9 /* AppDelegate.h */,
 				36E3DB121ADF489C004245F9 /* AppDelegate.m */,
 				36E3DB141ADF489C004245F9 /* ViewController.h */,
@@ -141,8 +143,6 @@
 				36E3DB3E1ADF813B004245F9 /* BaseTopRefreshView.m */,
 				36E3DB401ADFA408004245F9 /* BaseLoadMoreView.h */,
 				36E3DB411ADFA408004245F9 /* BaseLoadMoreView.m */,
-				36527B8F1AE0ECEA00AF5F24 /* CustomTopRefreshView.h */,
-				36527B901AE0ECEA00AF5F24 /* CustomTopRefreshView.m */,
 			);
 			path = TLPullRefreshTableView;
 			sourceTree = "<group>";
@@ -250,7 +250,7 @@
 				36E3DB421ADFA408004245F9 /* BaseLoadMoreView.m in Sources */,
 				36E3DB3F1ADF813B004245F9 /* BaseTopRefreshView.m in Sources */,
 				36E3DB161ADF489C004245F9 /* ViewController.m in Sources */,
-				36527B911AE0ECEA00AF5F24 /* CustomTopRefreshView.m in Sources */,
+				363DEB381AF0B1BD00909D0D /* CustomTopRefreshView.m in Sources */,
 				36E3DB131ADF489C004245F9 /* AppDelegate.m in Sources */,
 				36E3DB3A1ADF4931004245F9 /* TLPullRefreshTableView.m in Sources */,
 				36E3DB101ADF489C004245F9 /* main.m in Sources */,

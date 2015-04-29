@@ -33,7 +33,6 @@
 - (void)setProgress:(CGFloat)progress{
     _ovalShapeLayer.strokeEnd = progress;
     _ovalShapeLayer.opacity = progress;
-    NSLog(@"%@", NSStringFromCGRect(_ovalShapeLayer.frame));
     _ovalShapeLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(self.frame.size.width/2 - 20, self.frame.size.height/2 - 20 - (60 - progress*60), 40, 40)].CGPath;
 
 
