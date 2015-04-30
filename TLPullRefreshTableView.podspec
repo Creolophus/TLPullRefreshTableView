@@ -3,9 +3,7 @@ Pod::Spec.new do |s|
   s.version          = "1.0.0"  
   s.summary          = "a PullRefreshTable which can custom refresh style." 
  
-  s.description      = <<-DESC  
-                       a PullRefreshTable which can custom refresh style.  
-                       DESC  
+
 
   s.homepage         = "https://github.com/wangzz/WZMarqueeView"  
   
